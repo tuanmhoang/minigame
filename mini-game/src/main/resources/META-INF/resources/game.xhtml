@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui">
+
+<h:head>
+	<title>Mini game</title>
+</h:head>
+
+<h:body>
+	<div align="center">
+		<h:form id="game-form">
+			<p:growl id="growl" showDetail="true" sticky="true" />
+			<h1>Welcome to mini game</h1>
+			<h:panelGroup id="points-and-level">
+				<p:outputLabel value="Score: #{gameBean.currentPoint}" />
+				<br></br>
+				<p:outputLabel value="Level: " />
+				<p:rating value="#{gameBean.currentLevel.level}" readonly="true" />
+			</h:panelGroup>
+			<br></br>
+			<h:panelGroup>
+				<h3>Find the correct words with given characters.</h3>
+				<p:outputLabel value="To next level: #{gameBean.pointsToLevelUp}"></p:outputLabel>
+				<h3>Your characters</h3>
+				<p:outputLabel value="#{gameBean.charactersToDisplay}"></p:outputLabel>
+				<h3>Your word</h3>
+				<h:inputText value="#{gameBean.playerWord}"></h:inputText>
+				<br></br>
+				<br></br>
+				<p:commandButton id="submit" value="OK" update="@all"
+					action="#{gameBean.checkResult}" />
+					<h:panelGroup>
+				<p:commandButton value="Surrender" action="#{gameBean.resetGame}"
+					update="@all">
+					<p:confirm header="Confirmation" message="Are you sure?"
+						icon="pi pi-exclamation-triangle" />
+				</p:commandButton></h:panelGroup>
+			</h:panelGroup>
+			<p:confirmDialog global="true" showEffect="fade" hideEffect="fade">
+				<p:commandButton value="Yes" type="button"
+					styleClass="ui-confirmdialog-yes" icon="pi pi-check" />
+				<p:commandButton value="No" type="button"
+					styleClass="ui-confirmdialog-no" icon="pi pi-times" />
+			</p:confirmDialog>
+		</h:form>
+	</div>
+</h:body>
+</html>
